@@ -10,3 +10,6 @@ def home(request):
 
 def about(request):
   return render(request, 'about.html')
+
+def headphones_index(request):
+  return render(request, 'headphones/index.html', { 'headphones': headphones })
