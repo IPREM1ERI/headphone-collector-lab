@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 from .models import Headphone
 
 # Create your views here.
@@ -19,3 +20,7 @@ def headphones_index(request):
 def headphones_detail(request, headphone_id):
   headphone = Headphone.objects.get(id=headphone_id)
   return render(request, 'headphones/detail.html', { 'headphone': headphone })
+
+class HeadphoneCreate(CreateView):
+  model = Headphone
+  fields = '__all__'

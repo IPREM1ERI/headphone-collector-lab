@@ -6,4 +6,5 @@ urlpatterns = [
   path('about/', views.about, name='about'),
   path('headphones/', views.headphones_index, name='headphones_index'),
   path('headphones/<int:headphone_id>/', views.headphones_detail, name='headphones_detail'),
+  path('headphones/create/', views.HeadphoneCreate.as_view(), name='headphones_create'),
 ]

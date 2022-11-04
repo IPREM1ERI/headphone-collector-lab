@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -10,3 +11,7 @@ class Headphone(models.Model):
 
   def __str__(self):
     return (f'{self.make}: {self.model}')
+
+  def get_absolute_url(self):
+      return reverse("headphones_detail", kwargs={"headphone_id": self.id})
+  
