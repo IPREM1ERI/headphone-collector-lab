@@ -23,6 +23,10 @@
     <h2>Brand: {{ headphone.make }}</h2>
     <h2>Style: {{ headphone.style }}</h2>
     <p>{{ headphone.description }}</p>
+    <div class="cat-actions">
+      <a href="{% url 'headphones_update' headphone.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'headphones_delete' headphone.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 

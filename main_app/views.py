@@ -1,12 +1,7 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Headphone
 
-# Create your views here.
-# Add the following import
-
-
-# Define the home view
 def home(request):
   return render(request, 'home.html')
 
@@ -24,3 +19,11 @@ def headphones_detail(request, headphone_id):
 class HeadphoneCreate(CreateView):
   model = Headphone
   fields = '__all__'
+
+class HeadphoneUpdate(UpdateView):
+  model = Headphone
+  fields = ['make', 'model', 'style', 'description']
+
+class HeadphoneDelete(DeleteView):
+  model = Headphone
+  success_url = '/headphones/'

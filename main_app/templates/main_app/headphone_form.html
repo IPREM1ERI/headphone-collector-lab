@@ -6,6 +6,11 @@
 {% endblock %}
 
 {% block content %}
+{% if headphone %}
+    <h1>Edit {{ headphone.model }}</h1>
+  {% else %}
+    <h1>Add a Headphone</h1>
+  {% endif %}
 
 <div class="page-header">
   <h1>Add a Headphone</h1>
