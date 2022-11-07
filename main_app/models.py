@@ -17,9 +17,10 @@ class Headphone(models.Model):
 
 class Listened(models.Model):
   date = models.DateField('Last Session')
-  time = models.IntegerField() 
+  time_hrs = models.IntegerField(default=0)
+  time_mins = models.IntegerField(default=0)  
 
-  headphone = models.ForeignKey(Headphone, on delete=models.CASCADE)
+  headphone = models.ForeignKey(Headphone, on_delete=models.CASCADE)
 
   def __str__(self):
-    return f'{self.time}hrs listened to on {self.date}'
+    return f'{self.time_hrs}hrs {self.time_mins}mins listened to on {self.date}'

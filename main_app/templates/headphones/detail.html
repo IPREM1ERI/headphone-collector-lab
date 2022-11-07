@@ -29,5 +29,38 @@
     </div>
   </div>
 </section>
+<div class="feedings-toy-container">
+  <section class="feedings">
+    <div class="subsection-title">
+      <h2>Listening Sessions</h2>
+      <img 
+        src="{% static 'images/cat-cone.svg' %}" 
+        alt="An ice cream cone cat"
+      />
+      <img 
+        src="{% static 'images/cat-onigiri.svg' %}"
+        alt="A cat as onigiri"
+      />
+      <img 
+        src="{% static 'images/kitty-kabob.svg' %}" 
+        alt="A kabob of kittens"
+      />
+    </div>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Time</th></tr>
+      </thead>
+      <tbody>
+        {% for listened in headphone.listened_set.all %}
+          <tr>
+            <td>{{listened.date}}</td>
+            <td>{{listened.time_hrs}} hr/s and {{listened.time_mins}} min/s</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
 
 {% endblock %}
+f'{self.time_hrs}hrs {self.time_mins}mins listened to on {self.date}'
