@@ -62,11 +62,17 @@
       method="post" 
       class="subsection-content"
     >
+    {% if headphone.listened_for_today %}
+      <p class="fed">{{headphone.model}} has been used today!</p>
+    {% else %}
+      <p class="unfed">{{headphone.model}} has not been used today!</p>
+    {% endif %}
       {% csrf_token %}
       {{ listened_form.as_p }}
       <button type="submit" class="btn submit">Add Session</button>
     </form>
     <h3>Past Sessions</h3>
+    {% if headphone.listened_set.all.count %}
     <table>
       <thead>
         <tr><th>Date</th><th>Time</th></tr>
@@ -80,6 +86,11 @@
         {% endfor %}
       </tbody>
     </table>
+    {% else %}
+			<div class="subsection-content">
+        <p>{{headphone.model}} has never been used 😔</p>
+      </div>
+    {% endif %}
   </section>
 </div>
 

@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Headphone
+from .models import Headphone, Equipment
 from .forms import ListenedForm
+from django.views.generic import ListView, DetailView
 
 
 def home(request):
@@ -40,3 +41,13 @@ class HeadphoneUpdate(UpdateView):
 class HeadphoneDelete(DeleteView):
   model = Headphone
   success_url = '/headphones/'
+
+class EquipmentCreate(CreateView):
+  model = Equipment
+  fields = '__all__'
+
+class EquipmentList(ListView):
+  model = Equipment
+
+class EquipmentDetail(DetailView):
+  model = Equipment
