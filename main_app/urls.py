@@ -9,4 +9,5 @@ urlpatterns = [
   path('headphones/create/', views.HeadphoneCreate.as_view(), name='headphones_create'),
   path('headphones/<int:pk>/update/', views.HeadphoneUpdate.as_view(), name='headphones_update'),
   path('headphones/<int:pk>/delete/', views.HeadphoneDelete.as_view(), name='headphones_delete'),
+  path('headphones/<int:headphone_id>/add_listened/', views.add_listened, name='add_listened'),
 ]

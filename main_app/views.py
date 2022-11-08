@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Headphone
+from .forms import ListenedForm
+
 
 def home(request):
   return render(request, 'home.html')
@@ -14,7 +16,18 @@ def headphones_index(request):
 
 def headphones_detail(request, headphone_id):
   headphone = Headphone.objects.get(id=headphone_id)
-  return render(request, 'headphones/detail.html', { 'headphone': headphone })
+  listened_form = ListenedForm()
+  return render(request, 'headphones/detail.html', { 
+    'headphone': headphone, 'listened_form': listened_form
+  })
+  
+def add_listened(request, headphone_id):
+  form = ListenedForm(request.POST)
+  if form.is_valid():
+    new_listened = form.save(commit=False)
+    new_listened.headphone_id = headphone_id
+    new_listened.save()
+  return redirect('headphones_detail', headphone_id=headphone_id)
 
 class HeadphoneCreate(CreateView):
   model = Headphone

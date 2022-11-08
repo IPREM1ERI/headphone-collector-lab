@@ -3,10 +3,20 @@
 
 {% block head %}
 <link 
+  href="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.css" 
+  rel="stylesheet" 
+/>
+<link rel="stylesheet" href="{% static 'css/mcdp.css' %}">
+<script 
+  src="https://cdn.jsdelivr.net/npm/mc-datepicker/dist/mc-calendar.min.js"
+>
+</script>
+<link 
   rel="stylesheet" 
   type="text/css" 
   href="{% static 'css/headphones/headphone-detail.css' %}"
 />
+<script defer src="{% static 'js/headphone-detail.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -46,6 +56,17 @@
         alt="A kabob of kittens"
       />
     </div>
+    <h3>Add a Session</h3>
+    <form
+    action="{% url 'add_listened' headphone.id %}"
+      method="post" 
+      class="subsection-content"
+    >
+      {% csrf_token %}
+      {{ listened_form.as_p }}
+      <button type="submit" class="btn submit">Add Session</button>
+    </form>
+    <h3>Past Sessions</h3>
     <table>
       <thead>
         <tr><th>Date</th><th>Time</th></tr>
@@ -63,4 +84,3 @@
 </div>
 
 {% endblock %}
-f'{self.time_hrs}hrs {self.time_mins}mins listened to on {self.date}'
