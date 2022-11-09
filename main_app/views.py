@@ -17,9 +17,10 @@ def headphones_index(request):
 
 def headphones_detail(request, headphone_id):
   headphone = Headphone.objects.get(id=headphone_id)
+  equipment_headphone_doesnt_have = Equipment.objects.exclude(id__in = headphone.equipment.all().values_list('id'))
   listened_form = ListenedForm()
   return render(request, 'headphones/detail.html', { 
-    'headphone': headphone, 'listened_form': listened_form
+    'headphone': headphone, 'listened_form': listened_form, 'equipment': equipment_headphone_doesnt_have
   })
   
 def add_listened(request, headphone_id):
@@ -59,3 +60,7 @@ class EquipmentUpdate(UpdateView):
 class EquipmentDelete(DeleteView):
   model = Equipment
   success_url = '/equipment/'
+
+def assoc_equipment(request, headphone_id, equipment_id):
+  Headphone.objects.get(id=headphone_id).equipment.add(equipment_id)
+  return redirect('headphones_detail', headphone_id=headphone_id)
