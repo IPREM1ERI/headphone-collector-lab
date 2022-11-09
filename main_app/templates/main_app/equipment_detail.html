@@ -15,8 +15,8 @@
   <div class="card-bg" style="background-color: grey "></div>
   <div class="card-content">
     <h2>{{ equipment.equipment_type }}</h2>
-    <h2>{{ equipment.make }}</h2>
-    <h2>{{ equipment.model}}</h2>
+    <h2>Make: {{ equipment.make }}</h2>
+    <h2>Model: {{ equipment.model}}</h2>
   </div>
 </div>
 <a href="{% url 'equipment_update' equipment.id %}" class="btn warn">Edit</a>

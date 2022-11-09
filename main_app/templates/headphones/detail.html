@@ -24,7 +24,7 @@
 <section class="cat-container">
   <div class="cat-img">
     <img 
-      src="{% static 'images/sk8r-boi-cat.svg' %}" 
+      src="{% static 'images/pngwing1.com.png' %}" 
       alt="A skater boy cat"
     >
   </div>
@@ -109,7 +109,7 @@
               style="background-color: {{ grey }}"
             ></div>
             <a href="{% url 'equipment_detail' equipment.id %}">
-              <p>A {{ equipment.make }}</p>
+              <p>{{ equipment.model }} by {{ equipment.make }}</p>
             </a>
           </div>
         {% endfor %}
@@ -127,7 +127,7 @@
               style="background-color: {{ grey }}"
             ></div>
             <a href="{% url 'equipment_detail' equipment.id %}">
-              <p>A {{ equipment.model }}</p>
+              <p>{{ equipment.model }} by {{ equipment.make }}</p>
             </a>
             <form action="{% url 'assoc_equipment' headphone.id equipment.id %}" method="post">
               {% csrf_token %}
