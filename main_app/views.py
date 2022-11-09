@@ -51,3 +51,11 @@ class EquipmentList(ListView):
 
 class EquipmentDetail(DetailView):
   model = Equipment
+
+class EquipmentUpdate(UpdateView):
+  model = Equipment
+  fields = ['make', 'model']
+
+class EquipmentDelete(DeleteView):
+  model = Equipment
+  success_url = '/equipment/'

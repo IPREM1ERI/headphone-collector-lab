@@ -51,4 +51,7 @@ class Equipment(models.Model):
   model = models.CharField(max_length=100) 
 
   def __str__(self):
-    return self.name
+    return self.make
+
+  def get_absolute_url(self):
+    return reverse('equipment_detail', kwargs={'pk': self.id})
