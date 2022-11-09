@@ -3,16 +3,22 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Headphone, Equipment
 from .forms import ListenedForm
 from django.views.generic import ListView, DetailView
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 
 
-def home(request):
-  return render(request, 'home.html')
+class Home(LoginView):
+  template_name = 'home.html'
 
 def about(request):
   return render(request, 'about.html')
 
+@login_required
 def headphones_index(request):
-  headphones = Headphone.objects.all()
+  headphones = Headphone.objects.filter(user=request.user)
   return render(request, 'headphones/index.html', { 'headphones': headphones })
 
 def headphones_detail(request, headphone_id):
@@ -31,9 +37,12 @@ def add_listened(request, headphone_id):
     new_listened.save()
   return redirect('headphones_detail', headphone_id=headphone_id)
 
-class HeadphoneCreate(CreateView):
+class HeadphoneCreate(LoginRequiredMixin, CreateView):
   model = Headphone
   fields = ['make', 'model', 'style', 'description']
+  def form_valid(self, form):
+    form.instance.user = self.request.user
+    return super().form_valid(form)
 
 class HeadphoneUpdate(UpdateView):
   model = Headphone
@@ -64,3 +73,17 @@ class EquipmentDelete(DeleteView):
 def assoc_equipment(request, headphone_id, equipment_id):
   Headphone.objects.get(id=headphone_id).equipment.add(equipment_id)
   return redirect('headphones_detail', headphone_id=headphone_id)
+
+def signup(request):
+  error_message = ""
+  if request.method == "POST":
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      login(request, user)
+      return redirect('headphones_index')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form': form, 'error_message': error_message}
+  return render(request, 'signup.html', context)

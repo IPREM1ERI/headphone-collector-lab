@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from datetime import date
+from django.contrib.auth.models import User
 
 # Create your models here.
 TYPES = (
@@ -31,6 +32,7 @@ class Headphone(models.Model):
   style = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
   equipment = models.ManyToManyField(Equipment)
+  user = models.ForeignKey(User, on_delete=models.CASCADE)
 
   def __str__(self):
     return (f'{self.make}: {self.model}')
