@@ -92,6 +92,36 @@
       </div>
     {% endif %}
   </section>
+  <section class="toys">
+    <div class="subsection-title">
+      <h2>Equipment</h2>
+      <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
+      <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
+      <img src="{% static 'images/fish.svg' %}" alt="A fishy toy" />
+    </div>
+    <h3>{{ headphone.model }}'s Equipment</h3>
+    <div class="subsection-content">
+      {% if headphone.equipment.count %}
+        {% for equipment in headphone.equipment.all %}
+          <div class="toy-container">
+            <div 
+              class="color-block"
+              style="background-color: {{ grey }}"
+            ></div>
+            <a href="{% url 'equipment_detail' equipment.id %}">
+              <p>A {{ equipment.make }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p class="no-toys">{{headphone.model}} doesn't have any equipment 😞</p>
+      {% endif %}
+    </div>
+    <h3>Available Equipment</h3>
+    <div class="subsection-content">
+      {% comment %} We'll display available toys here {% endcomment %}
+    </div>
+  </section>
 </div>
 
 {% endblock %}

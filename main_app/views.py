@@ -32,7 +32,7 @@ def add_listened(request, headphone_id):
 
 class HeadphoneCreate(CreateView):
   model = Headphone
-  fields = '__all__'
+  fields = ['make', 'model', 'style', 'description']
 
 class HeadphoneUpdate(UpdateView):
   model = Headphone

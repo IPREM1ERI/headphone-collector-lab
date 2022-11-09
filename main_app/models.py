@@ -3,17 +3,34 @@ from django.urls import reverse
 from datetime import date
 
 # Create your models here.
-
 TYPES = (
   ('A', 'Amplifier'),
   ('D', 'DAC'),
 )
+
+class Equipment(models.Model):
+  equipment_type = models.CharField(
+    max_length=1,
+    choices=TYPES,
+    default=TYPES[0][0]
+  )
+  make = models.CharField(max_length=100)
+  model = models.CharField(max_length=100) 
+
+  def __str__(self):
+    return self.make
+
+  def get_absolute_url(self):
+    return reverse('equipment_detail', kwargs={'pk': self.id})
+
+# ///////////////////////////////////////////////////////////////////////////////
 
 class Headphone(models.Model):
   make = models.CharField(max_length=100)
   model = models.CharField(max_length=100)
   style = models.CharField(max_length=100)
   description = models.TextField(max_length=250)
+  equipment = models.ManyToManyField(Equipment)
 
   def __str__(self):
     return (f'{self.make}: {self.model}')
@@ -39,19 +56,3 @@ class Listened(models.Model):
   class Meta:
     ordering = ['-date']
 
-# ///////////////////////////////////////////////////////////////////////////////
-
-class Equipment(models.Model):
-  equipment_type = models.CharField(
-    max_length=1,
-    choices=TYPES,
-    default=TYPES[0][0]
-  )
-  make = models.CharField(max_length=100)
-  model = models.CharField(max_length=100) 
-
-  def __str__(self):
-    return self.make
-
-  def get_absolute_url(self):
-    return reverse('equipment_detail', kwargs={'pk': self.id})
