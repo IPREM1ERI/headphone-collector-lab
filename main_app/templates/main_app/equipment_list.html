@@ -13,10 +13,7 @@
 
 <section class="page-header">
   <h1>All Equipment</h1>
-  <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
-  <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
-  <img src="{% static 'images/post.svg' %}" alt="A scratching post" />
-  <img src="{% static 'images/fish.svg' %}" alt="A fishy toy" />
+  <img src="{% static 'images/pngwing4.com.png' %}" alt="A ball of string" />
 </section>
 
 <section class="card-container">
@@ -25,7 +22,7 @@
     <div class="card-bg" style="background-color: grey "></div>
     <a href="{% url 'equipment_detail' equipment.id %}">
       <div class="card-content">
-        <h2>{{ equipment.equipment_type}}</h2>
+        <h2>Type: {{ equipment.get_equipment_type_display}}</h2>
         <h2>Make: {{ equipment.make }}</h2>
         <h2>Model: {{ equipment.model }}</h2>
       </div>

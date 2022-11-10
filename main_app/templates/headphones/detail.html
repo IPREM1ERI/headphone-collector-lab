@@ -44,16 +44,8 @@
     <div class="subsection-title">
       <h2>Listening Sessions</h2>
       <img 
-        src="{% static 'images/cat-cone.svg' %}" 
+        src="{% static 'images/pngwing5.com.png' %}" 
         alt="An ice cream cone cat"
-      />
-      <img 
-        src="{% static 'images/cat-onigiri.svg' %}"
-        alt="A cat as onigiri"
-      />
-      <img 
-        src="{% static 'images/kitty-kabob.svg' %}" 
-        alt="A kabob of kittens"
       />
     </div>
     <h3>Add a Session</h3>
@@ -95,9 +87,7 @@
   <section class="toys">
     <div class="subsection-title">
       <h2>Equipment</h2>
-      <img src="{% static 'images/string.svg' %}" alt="A ball of string" />
-      <img src="{% static 'images/mouse.svg' %}" alt="A mouse" />
-      <img src="{% static 'images/fish.svg' %}" alt="A fishy toy" />
+      <img src="{% static 'images/pngwing3.com.png' %}" alt="A ball of string" />
     </div>
     <h3>{{ headphone.model }}'s Equipment</h3>
     <div class="subsection-content">
@@ -109,7 +99,7 @@
               style="background-color: {{ grey }}"
             ></div>
             <a href="{% url 'equipment_detail' equipment.id %}">
-              <p>{{ equipment.model }} by {{ equipment.make }}</p>
+              <p>{{ equipment.get_equipment_type_display }}: {{ equipment.model }} by {{ equipment.make }}</p>
             </a>
           </div>
         {% endfor %}
@@ -127,7 +117,7 @@
               style="background-color: {{ grey }}"
             ></div>
             <a href="{% url 'equipment_detail' equipment.id %}">
-              <p>{{ equipment.model }} by {{ equipment.make }}</p>
+              <p>{{ equipment.get_equipment_type_display }}: {{ equipment.model }} by {{ equipment.make }}</p>
             </a>
             <form action="{% url 'assoc_equipment' headphone.id equipment.id %}" method="post">
               {% csrf_token %}
@@ -137,7 +127,7 @@
         {% endfor %}
       {% else %}
         <p class="all-toys">
-          {{headphone.make}} already has all the available equipment 🥳
+          {{headphone.model}} already has all the available equipment 🥳
         </p>
       {% endif %}
 
